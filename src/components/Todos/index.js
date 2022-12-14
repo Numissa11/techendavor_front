@@ -1,13 +1,13 @@
 import React from 'react';
-import Todo from '../Todo';
-import TodoForm from '../TodoForm';
+import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 
 
 function Todos() {
     return ( 
         <div>
-            <TodoForm />
-            <TodoList />
+           <TodoForm />
+           <TodoList />
         </div>
      );
 }
