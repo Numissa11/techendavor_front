@@ -5,11 +5,15 @@ import Todos from '.';
 function TodoForm({ todos, setTodos }) {
 
     const [todo, setTodo] = useState({
+        id: "",
         message: ''
     })
 
     const handleChange = e => {
-        setTodo({ message: e.target.value })
+        setTodo({ 
+            id: Date.now(),
+            message: e.target.value 
+        })
     }
 
     const handleSubmit = e => {
