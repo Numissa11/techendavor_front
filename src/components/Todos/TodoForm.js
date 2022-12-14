@@ -18,7 +18,7 @@ function TodoForm({ todos, setTodos }) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        setTodos([...todos, todo])
+        setTodos([todo, ...todos])
     }
 
     return (

@@ -10,12 +10,26 @@ const initialState = [
 
 function Todos() {
    const [todoList, setTodoList] = useState(initialState)
-   console.log('i de', todoList);
+   
+   const deleteHandler = id => 
+   {
+      const newTodos = todoList.filter(elm => {
+         return elm.id !== id
+      })
+      setTodoList(newTodos)
+   }
+
+   const updateHandler = id => 
+   {
+      const updatedTodo = todoList.map(elm => {
+         
+      })
+   }
 
     return ( 
         <div>
-           <TodoForm todos={initialState} setTodos={setTodoList}/>
-           <TodoList todos={todoList}/>
+           <TodoForm todos={initialState} setTodos={setTodoList} />
+           <TodoList todos={todoList} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
         </div>
      );
 }

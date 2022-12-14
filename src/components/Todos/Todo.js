@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
-function Todo(props) {
+function Todo({todo, deleteHandler}) {
+
+    const [isEditing, setIsEditing] = useState(false)
+    const [updatedTodo, setUpdatedTodo] = useState()
+
+    const updateTodoState = () => {
+        
+    }
     return ( 
         <div>
-            {props.todo.message}
+            {todo.message}
+            <button onClick={() =>{ deleteHandler(todo.id) } }>X</button>
+            <button onClick={() =>{ updateHandler(todo.id) } }>edit</button>
         </div>
      );
 }
