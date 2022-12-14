@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-function Todo() {
+function Todo(props) {
     return ( 
         <div>
-            I am here Darkness...
+            {props.todo.message}
         </div>
      );
 }

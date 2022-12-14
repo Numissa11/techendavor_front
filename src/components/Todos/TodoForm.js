@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Todos from '.';
 
 
-function TodoForm() {
-    return ( 
-        <div >
-            Hello Darkness my old friend
-        </div>
-     );
+function TodoForm({ todos, setTodos }) {
+
+    const [todo, setTodo] = useState({
+        message: ''
+    })
+
+    const handleChange = e => {
+        setTodo({ message: e.target.value })
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        setTodos([...todos, todo])
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                name="todo"
+                value={todo.message}
+                placeholder='Enter your Todo item sweety'
+                onChange={handleChange}
+            />
+            <button type='submit'>Add Todo</button>
+        </form>
+    );
 }
 
 export default TodoForm;
