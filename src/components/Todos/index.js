@@ -1,37 +1,41 @@
-import React, { useState } from 'react';
-import TodoForm from './TodoForm';
-import TodoList from './TodoList';
+import React, { useState } from 'react'
+import TodoForm from './TodoForm'
+import TodoList from './TodoList'
 
 const initialState = [
-   { id: 1, message: 'Walk on the other side' },
-   { id: 2, message: 'Take out trash' },
-   { id: 3, message: 'finish tutorial' }
+    { id: 1, message: 'Walk the dog' },
+    { id: 2, message: 'Take out trash' },
+    { id: 3, message: 'Finish tutorial video' }
 ]
 
-function Todos() {
-   const [todoList, setTodoList] = useState(initialState)
-   
-   const deleteHandler = id => 
-   {
-      const newTodos = todoList.filter(elm => {
-         return elm.id !== id
-      })
-      setTodoList(newTodos)
-   }
+export default function Todos() {
+    const [todoList, setTodoList] = useState(initialState)
+    
+    const deleteHandler = id => {
+        const newTodos = todoList.filter(item => {
+            return item.id !== id
+        })
 
-   const updateHandler = id => 
-   {
-      const updatedTodo = todoList.map(elm => {
-         
-      })
-   }
+        setTodoList(newTodos)
+    }
 
-    return ( 
+    const updateHandler = todo => {
+        setTodoList(todoList.map(item => {
+            if(item.id === todo.id) {
+                return {
+                    ...item,
+                    message: todo.message
+                }
+            } else {
+                return item
+            }
+        }))
+    }
+
+    return (
         <div>
-           <TodoForm todos={initialState} setTodos={setTodoList} />
-           <TodoList todos={todoList} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
+            <TodoForm todos={todoList} setTodos={setTodoList} />
+            <TodoList todos={todoList} deleteHandler={deleteHandler} updateHandler={updateHandler} />
         </div>
-     );
+    )
 }
-
-export default Todos;

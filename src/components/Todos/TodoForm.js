@@ -4,10 +4,12 @@ import Todos from '.';
 
 function TodoForm({ todos, setTodos }) {
 
-    const [todo, setTodo] = useState({
+    const initialState = {
         id: "",
         message: ''
-    })
+    }
+
+    const [todo, setTodo] = useState(initialState)
 
     const handleChange = e => {
         setTodo({ 
@@ -19,6 +21,7 @@ function TodoForm({ todos, setTodos }) {
     const handleSubmit = e => {
         e.preventDefault();
         setTodos([todo, ...todos])
+        setTodo(initialState)
     }
 
     return (
