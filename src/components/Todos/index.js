@@ -1,41 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
+import axios from 'axios';
 
-const initialState = [
-    { id: 1, message: 'Walk the dog' },
-    { id: 2, message: 'Take out trash' },
-    { id: 3, message: 'Finish tutorial video' }
-]
 
 export default function Todos() {
-    const [todoList, setTodoList] = useState(initialState)
-    
-    const deleteHandler = id => {
-        const newTodos = todoList.filter(item => {
-            return item.id !== id
-        })
+   const [todoList, setTodoList] = useState([])
 
-        setTodoList(newTodos)
-    }
+   useEffect(() => {
+      axios.get('http://localhost:8888/todos', {})
+         .then(res => {
+            console.log('ressss', res);
+            setTodoList(res.data)
+         })
+         .catch(err => {
+            console.log('err', err);
+         })
+   }, [])
 
-    const updateHandler = todo => {
-        setTodoList(todoList.map(item => {
-            if(item.id === todo.id) {
-                return {
-                    ...item,
-                    message: todo.message
-                }
-            } else {
-                return item
-            }
-        }))
-    }
+   const deleteHandler = id => {
+      axios.delete(`http://localhost:8888/todos/${id}`)
+         .then(res => {
+            console.log('res', res);
+            const newTodos = todoList.filter(item => {
+               return item.id !== id
+            })
+            setTodoList(newTodos)
+         })
+         .catch(err => {
+            console.log('err', err);
+         })
+   }
 
-    return (
-        <div>
-            <TodoForm todos={todoList} setTodos={setTodoList} />
-            <TodoList todos={todoList} deleteHandler={deleteHandler} updateHandler={updateHandler} />
-        </div>
-    )
+   const updateHandler = todo => {
+
+
+      axios.put(`http://localhost:8888/todos/${todo.id}`, todo)
+         .then(res => {
+            console.log('res', res);
+            setTodoList(todoList.map(item => {
+               if (item.id === todo.id) {
+                  return {
+                     ...item,
+                     message: todo.message
+                  }
+               } else {
+                  return item
+               }
+            }))
+         })
+         .catch(err => {
+            console.log('err', err);
+         })
+   }
+
+   return (
+      <div>
+         <TodoForm todos={todoList} setTodos={setTodoList} />
+         <TodoList todos={todoList} deleteHandler={deleteHandler} updateHandler={updateHandler} />
+      </div>
+   )
 }

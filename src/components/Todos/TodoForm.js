@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import Todos from '.';
 
@@ -21,6 +22,15 @@ function TodoForm({ todos, setTodos }) {
     const handleSubmit = e => {
         e.preventDefault();
         setTodos([todo, ...todos])
+
+        axios.post(`http://localhost:8888/todos/`, todo)
+        .then(res => {
+           console.log('res', res);
+        })
+        .catch(err => {
+           console.log('err', err);
+        })
+
         setTodo(initialState)
     }
 
