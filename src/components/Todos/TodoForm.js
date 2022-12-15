@@ -16,7 +16,7 @@ function TodoForm({ todos, setTodos }) {
         setTodo({ 
             id: Date.now(),
             message: e.target.value 
-        })
+        });
     }
 
     const handleSubmit = e => {
